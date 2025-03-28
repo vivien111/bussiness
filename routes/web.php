@@ -13,13 +13,17 @@
 
 use Illuminate\Support\Facades\Route;
 use Wave\Facades\Wave;
+use App\Http\Controllers\AnnouncementController;
 
 // Wave routes
 Wave::routes();
 
+Route::get('/get-states/{country_id}', [AnnouncementController::class, 'getStates'])
+     ->name('get.states');
 
-Route::get('dashboard/announcements/create', function () {
-    return view('filament.annonce');
-})->name('wave.dashboard.announcements.create');
+Route::get('dashboard/announcements/create', [AnnouncementController::class, 'create'])
+     ->name('wave.dashboard.announcements.create');
+
+
 
 

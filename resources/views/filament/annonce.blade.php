@@ -21,7 +21,7 @@
 			<x-app.heading title="Soumettre l'Annonce" description="Bienvenue sur votre tableau de bord." />
 
 			<!-- Image dynamique en fonction de l'étape -->
-			
+
 
 
 			<form action="" method="POST" enctype="multipart/form-data">
@@ -60,14 +60,12 @@
 				</div>
 
 				<div x-show="step === 3">
-					<label for="title" class="block text-sm font-medium text-gray-700">Titre de l'annonce</label>
+					<label for="title" class="block text-sm font-medium text-gray-700">Prix de l'annonce</label>
 					<input type="text" name="title" id="title" class="w-full p-2 border rounded" required>
 
-					<label for="content" class="block mt-4 text-sm font-medium text-gray-700">Description</label>
-					<textarea name="content" id="hiddenContent" cols="30" rows="10" class="w-full p-2 border rounded"
-						required></textarea>
+				
 					<div class="flex justify-between mt-4">
-						<button type="button" class="bg-gray-400 text-white px-4 py-2 rounded" disabled>←
+						<button type="button" class="bg-gray-600 text-white px-4 py-2 rounded" x-on:click="step = 2">←
 							Précédent</button>
 						<button type="button" class="bg-blue-600 text-white px-4 py-2 rounded"
 							x-on:click="step = 4">Suivant →</button>
@@ -76,14 +74,22 @@
 
 
 				<div x-show="step === 4">
-					<label for="title" class="block text-sm font-medium text-gray-700">Titre de l'annonce</label>
-					<input type="text" name="title" id="title" class="w-full p-2 border rounded" required>
+					<label for="title" class="block text-sm font-medium text-gray-700">Votre Adresse Ciblé</label>
 
-					<label for="content" class="block mt-4 text-sm font-medium text-gray-700">Description</label>
-					<textarea name="content" id="hiddenContent" cols="30" rows="10" class="w-full p-2 border rounded"
-						required></textarea>
+					<select name="country_id" id="country_id" class="w-full p-2 border rounded" required>
+						<option value="">Sélectionnez un pays</option>
+						@foreach($countries as $country)
+							<option value="{{ $country->id }}">{{ $country->name }}</option>
+						@endforeach
+					</select>
+
+					<label for="content" class="block mt-4 text-sm font-medium text-gray-700">Ville/État</label>
+					<select name="state_id" id="state_id" class="form-control" required>
+						<option value="">Sélectionnez d'abord un pays</option>
+					</select>
+
 					<div class="flex justify-between mt-4">
-						<button type="button" class="bg-gray-400 text-white px-4 py-2 rounded" disabled>←
+						<button type="button" class="bg-gray-600 text-white px-4 py-2 rounded" x-on:click="step = 3">←
 							Précédent</button>
 						<button type="button" class="bg-blue-600 text-white px-4 py-2 rounded"
 							x-on:click="step = 5">Suivant →</button>
@@ -91,14 +97,11 @@
 				</div>
 
 				<div x-show="step === 5">
-					<label for="title" class="block text-sm font-medium text-gray-700">Titre de l'annonce</label>
-					<input type="text" name="title" id="title" class="w-full p-2 border rounded" required>
+					<label for="title" class="block text-sm font-medium text-gray-700">Images de l'annonce</label>
+					<input type="file" name="title" id="title" class="w-full p-2 border rounded" required>
 
-					<label for="content" class="block mt-4 text-sm font-medium text-gray-700">Description</label>
-					<textarea name="content" id="hiddenContent" cols="30" rows="10" class="w-full p-2 border rounded"
-						required></textarea>
 					<div class="flex justify-between mt-4">
-						<button type="button" class="bg-gray-400 text-white px-4 py-2 rounded" disabled>←
+						<button type="button" class="bg-gray-600 text-white px-4 py-2 rounded" x-on:click="step = 4">←
 							Précédent</button>
 						<button type="button" class="bg-blue-600 text-white px-4 py-2 rounded"
 							x-on:click="step = 6">Suivant →</button>
@@ -121,6 +124,18 @@
 			</form>
 		</div>
 	</x-app.container>
+
+	<script>
+    $('#country_id').change(function() {
+        $.get('/get-states/' + $(this).val(), function(data) {
+            $('#state_id').empty();
+            $('#state_id').append('<option value="">Sélectionnez un état</option>');
+            $.each(data, function(key, value) {
+                $('#state_id').append('<option value="'+value.id+'">'+value.name+'</option>');
+            });
+        });
+    });
+</script>
 
 	<!-- Inclusion de Quill -->
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
