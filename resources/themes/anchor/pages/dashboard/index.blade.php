@@ -33,7 +33,7 @@
             <x-app.dashboard-card
                 href="https://devdojo.com/questions"
                 target="_blank"
-                title="forfait actif"
+                title="Forfait Actif"
                 description="Nombre total de forfait actif"
                 link_text="Forfaits"
                 image="/wave/img/community.png"

@@ -15,10 +15,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('subscriptions:cancel-expired')->hourly();
+        $schedule->command('newsletter:send')->everyMinute();
     }
+    
 
+    
     /**
      * Register the commands for the application.
      *
