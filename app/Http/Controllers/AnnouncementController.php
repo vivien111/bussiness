@@ -23,7 +23,7 @@ class AnnouncementController extends Controller
     public function create()
     {
         $countries = Country::all();
-        $invoices = Invoice::where('user_id', auth()->id())->get();
+        $invoices = app(UserInvoiceController::class)->index()->getData()->invoices; // Récupère les factures
         
         return view('filament.annonce', compact('countries', 'invoices'));
     }

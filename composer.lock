@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e542e5d981bc8ab2890dcfbc97da7f4",
+    "content-hash": "c3cab53365046285f76f80b852d7f91b",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2911,16 +2911,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.9.2",
+            "version": "7.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "d281ed313b989f213357e3be1a179f02196ac99b"
+                "reference": "7b2f29fe81dc4da0ca0ea7d42107a0845946ea77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/d281ed313b989f213357e3be1a179f02196ac99b",
-                "reference": "d281ed313b989f213357e3be1a179f02196ac99b",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7b2f29fe81dc4da0ca0ea7d42107a0845946ea77",
+                "reference": "7b2f29fe81dc4da0ca0ea7d42107a0845946ea77",
                 "shasum": ""
             },
             "require": {
@@ -3017,7 +3017,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.9.2"
+                "source": "https://github.com/guzzle/guzzle/tree/7.9.3"
             },
             "funding": [
                 {
@@ -3033,7 +3033,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-24T11:22:20+00:00"
+            "time": "2025-03-27T13:37:11+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -5789,6 +5789,39 @@
                 }
             ],
             "time": "2024-11-21T10:39:51+00:00"
+        },
+        {
+            "name": "openai/openai",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chicodgtal/openai.git",
+                "reference": "3943a54d2a974d4b3246842846cb0cf4414aa308"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chicodgtal/openai/zipball/3943a54d2a974d4b3246842846cb0cf4414aa308",
+                "reference": "3943a54d2a974d4b3246842846cb0cf4414aa308",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chico",
+                    "email": "chico@chicodgtal.com.br"
+                }
+            ],
+            "description": "ai integracao",
+            "support": {
+                "issues": "https://github.com/chicodgtal/openai/issues",
+                "source": "https://github.com/chicodgtal/openai/tree/main"
+            },
+            "time": "2023-03-12T12:19:36+00:00"
         },
         {
             "name": "openspout/openspout",

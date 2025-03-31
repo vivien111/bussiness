@@ -33,14 +33,13 @@ class InvoiceResource extends Resource
                     ->numeric()
                     ->required(),
                 
-                Forms\Components\Select::make('status')
+                    Forms\Components\Select::make('status')
                     ->options([
-                        'draft' => 'Brouillon',
-                        'sent' => 'Envoyée',
+                        'unpaid' => 'Non payé',
                         'paid' => 'Payée',
-                        'cancelled' => 'Annulée',
+                        'refunded' => 'Remboursée',
                     ])
-                    ->required(),
+                    ->required(),                
                 
                 Forms\Components\DatePicker::make('paid_at')
                     ->native(false),
@@ -62,10 +61,9 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'draft' => 'gray',
-                        'sent' => 'info',
+                        'unpaid' => 'info',
                         'paid' => 'success',
-                        'cancelled' => 'danger',
+                        'refunded' => 'danger',
                     }),
                 
                 Tables\Columns\TextColumn::make('paid_at')

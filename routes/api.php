@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\AnnonceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return auth()->user();
 });
+
+Route::post('/generate-annonce', [AnnonceController::class, 'generateAnnonce']);
 
 Wave::api();
 
