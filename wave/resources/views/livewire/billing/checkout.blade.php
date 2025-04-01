@@ -32,7 +32,7 @@
                             <div class="p-6 lg:p-8">
                                 <div class="relative text-gray-500 dark:text-neutral-400">
                                     <span lass="text-lg md:text-xl font-semibold rounded-full">
-                                        {{ $plan->name }} Plan
+                                    {{ $plan->name }} Plan
                                         {{ $billing_cycle_selected }}
                                     </span>
                                 </div>
@@ -63,7 +63,7 @@
                                     <div class="relative w-full md:w-auto">
                                         @if(config('wave.billing_provider') == 'stripe')
                                             <x-billing.button wire:click="redirectToStripeCheckout('{{ $plan->id }}')" wire:target="redirectToPaymentProvider" rounded="md" color="{{ config('devdojo.billing.style.color') }}">
-                                                Subscribe to this Plan
+                                            Abonnez-vous à ce plan
                                             </x-billing.button>
                                         @else
                                             @if($change)

@@ -86,9 +86,10 @@ class PlanResource extends Resource
                             ->options(Role::all()->pluck('name', 'id'))
                             ->searchable()
                             ->required(),
-                ])
+                    ])
             ]);
     }
+    
 
     public static function table(Table $table): Table
     {

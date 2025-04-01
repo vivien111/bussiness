@@ -18,10 +18,11 @@ use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Notifications\Notifiable;
 use Devdojo\Auth\Models\User as AuthUser;
 use Lab404\Impersonate\Models\Impersonate;
+use Laravel\Cashier\Billable;
 
 class User extends AuthUser implements JWTSubject, HasAvatar, FilamentUser
 {
-    use Notifiable, Impersonate, HasRoles;
+    use Notifiable, Impersonate, Billable, HasRoles;
 
     /**
      * The attributes that are mass assignable.

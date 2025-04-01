@@ -10,6 +10,7 @@
         "ext-gd": "*",
         "barryvdh/laravel-dompdf": "^3.1",
         "bezhansalleh/filament-google-analytics": "^2.0",
+        "blade-ui-kit/blade-heroicons": "^2.6",
         "codeat3/blade-phosphor-icons": "^2.0",
         "devdojo/app": "0.11.0",
         "devdojo/auth": "^1.0",
@@ -19,6 +20,7 @@
         "guzzlehttp/guzzle": "^7.9",
         "intervention/image": "^2.7",
         "lab404/laravel-impersonate": "^1.7.5",
+        "laravel/cashier": "^15.6",
         "laravel/folio": "^1.1",
         "laravel/framework": "^11.0",
         "laravel/pail": "^1.2",
@@ -29,7 +31,7 @@
         "ralphjsmit/livewire-urls": "^1.4",
         "spatie/laravel-permission": "^6.4",
         "spatie/laravel-translatable": "^6.11",
-        "stripe/stripe-php": "^15.3",
+        "stripe/stripe-php": "^16.6",
         "tymon/jwt-auth": "@dev"
     },
     "require-dev": {

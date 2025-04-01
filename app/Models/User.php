@@ -6,10 +6,11 @@ use Illuminate\Support\Str;
 use Wave\User as WaveUser;
 use Illuminate\Notifications\Notifiable;
 use Wave\Traits\HasProfileKeyValues;
+use Laravel\Cashier\Billable;
 
 class User extends WaveUser
 {
-    use Notifiable, HasProfileKeyValues;
+    use Notifiable, Billable, HasProfileKeyValues;
 
     public $guard_name = 'web';
 
@@ -41,6 +42,8 @@ class User extends WaveUser
         'password',
         'remember_token',
     ];
+
+    
 
     protected static function boot()
     {

@@ -65,5 +65,8 @@ class Subscription extends Model
     {
         return $this->belongsTo(Plan::class, 'plan_id');
     }
-
+    public function billable()
+    {
+        return $this->morphTo();
+    }
 }

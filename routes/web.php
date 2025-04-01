@@ -17,6 +17,8 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OpenAIController;
 use App\Http\Controllers\CohereController;
+use App\Http\Controllers\SubscriptionController;
+use Illuminate\Support\Facades\Storage;
 
 // Wave routes
 Wave::routes();
@@ -24,7 +26,39 @@ Wave::routes();
 Route::get('/csrf-token', function () {
      return response()->json(['csrf_token' => csrf_token()]);
  });
+
+ Route::get('/{folder}/{filename}', function ($folder) {
+     // Récupérer tous les fichiers dans le dossier spécifié
+     $files = Storage::files('public/' . $folder);
  
+     // Créer des liens complets vers les fichiers
+     $fileLinks = array_map(function ($file) {
+         return url('storage/' . basename($file)); // Crée un lien direct vers le fichier
+     }, $files);
+ 
+     return view('storage-files', ['files' => $fileLinks]);
+ });
+
+Route::get('/public/storage/announcements/{filename}', function ($filename) {
+    $path = storage_path('app/public/storage/announcements/' . $filename);
+    
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+})->where('filename', '.*');
+
+ 
+ Route::middleware(['auth'])->group(function () {
+     Route::get('/subscribe', [SubscriptionController::class, 'showForm'])->name('subscribe.form');
+     Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe.create');
+     Route::post('/cancel', [SubscriptionController::class, 'cancel'])->name('subscribe.cancel');
+     Route::get('/subscription/{plan}', [SubscriptionController::class, 'create'])->name('subscription.create');
+     Route::post('/subscription', [SubscriptionController::class, 'store'])->name('subscription.store');
+     Route::get('/subscription', [SubscriptionController::class, 'show'])->name('subscription.show');
+     Route::get('/subscription/invoice/{invoice}', [SubscriptionController::class, 'downloadInvoice'])->name('subscription.invoice');
+ });
 
 Route::post('/generate-ads', [CohereController::class, 'generateAdText']);
 
