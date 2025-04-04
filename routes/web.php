@@ -27,17 +27,17 @@ Route::get('/csrf-token', function () {
      return response()->json(['csrf_token' => csrf_token()]);
  });
 
- Route::get('/{folder}/{filename}', function ($folder) {
+ //Route::get('/{folder}/{filename}', function ($folder) {
      // Récupérer tous les fichiers dans le dossier spécifié
-     $files = Storage::files('public/' . $folder);
+     //$files = Storage::files('public/' . $folder);
  
      // Créer des liens complets vers les fichiers
-     $fileLinks = array_map(function ($file) {
-         return url('storage/' . basename($file)); // Crée un lien direct vers le fichier
-     }, $files);
+     //$fileLinks = array_map(function ($file) {
+        // return url('storage/' . basename($file)); // Crée un lien direct vers le fichier
+    // }, $files);
  
-     return view('storage-files', ['files' => $fileLinks]);
- });
+    // return view('storage-files', ['files' => $fileLinks]);
+ //})->where('folder', '.*');
 
 Route::get('/public/storage/announcements/{filename}', function ($filename) {
     $path = storage_path('app/public/storage/announcements/' . $filename);
