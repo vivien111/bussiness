@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    image: laravelphp/php-fpm
+    container_name: laravel-app
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+
+  webserver:
+    image: nginx:alpine
+    container_name: nginx-server
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+  db:
+    image: mysql:5.7
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+    ports:
+      - "3306:3306"
