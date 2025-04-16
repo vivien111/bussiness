@@ -27,6 +27,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.5",
         "livewire/livewire": "^3.0",
+        "mcamara/laravel-localization": "^2.3",
         "openai/openai": "dev-main",
         "ralphjsmit/livewire-urls": "^1.4",
         "spatie/laravel-permission": "^6.4",

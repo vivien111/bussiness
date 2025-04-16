@@ -19,6 +19,8 @@ use App\Http\Controllers\OpenAIController;
 use App\Http\Controllers\CohereController;
 use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\NewsletterController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 // Wave routes
 Wave::routes();
@@ -68,6 +70,8 @@ Route::get('/invoices/{invoice}/download', [InvoiceController::class, 'download'
 
 Route::get('/get-states/{country_id}', [AnnouncementController::class, 'getStates'])
      ->name('get.states');
+
+     Route::get('/send-newsletter', [NewsletterController::class, 'sendTestNewsletter']);
 
 // Version avec toutes les bonnes pratiques
 Route::post('/dashboard/announcements', [AnnouncementController::class, 'store'])

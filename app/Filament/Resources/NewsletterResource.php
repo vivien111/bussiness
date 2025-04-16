@@ -94,7 +94,7 @@ class NewsletterResource extends Resource
             ->actions([
                 Action::make('scheduleNewsletter')
                     ->label('Programmer l’envoi')
-                    ->icon('heroicon-o-mail')
+                    ->icon('heroicon-o-envelope')
                     ->requiresConfirmation()
                     ->action(fn (Newsletter $record) => $record->update([
                         'scheduled_at' => now()->addMinutes(10),

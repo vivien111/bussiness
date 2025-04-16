@@ -1,7 +1,7 @@
 <x-layouts.app>
-	<x-app.container x-data="{ step: 1 }" x-cloak class="lg:space-y-8 flex h-full bg-white ">
+	<x-app.container x-data="{ step: 1 }" x-cloak class="lg:space-y-8 flex h-full">
 		<!-- Menu latéral -->
-		<div class="flex h-full w-1/5 bg-white border-r p-4">
+		<div class="flex h-full w-1/5 border-r p-4">
 			<ul class="space-y-4">
 				<template x-for="(label, index) in ['Etape', 'Etape', 'Etape']" :key="index">
 					<li class="flex items-center space-x-2">
@@ -19,12 +19,13 @@
 		<!-- Contenu du formulaire -->
 		<div class="flex-1 flex">
 
-			<div class="max-w-8xl mx-auto bg-white rounded-xl shadow-sm p-8" style="width: 500px;">
+			<div class="max-w-8xl mx-auto  rounded-xl shadow-sm p-8" style="width: 500px;">
 
 				<x-app.heading title="Soumettre l'Annonce" description="Bienvenue sur votre tableau de bord. "
 					class="mb-80" />
 
-				<form action="{{route('announcements.store')}}" method="POST" enctype="multipart/form-data" class="space-y-8">
+				<form action="{{route('announcements.store')}}" method="POST" enctype="multipart/form-data"
+					class="space-y-8">
 					@csrf
 
 					<!-- Étape 1 -->
@@ -63,6 +64,7 @@
 
 					<!-- Étape 2 -->
 					<div x-show="step === 2" class="space-y-6">
+
 						<div class="space-y-3">
 							<label class="block text-sm font-medium text-gray-700">Votre Adresse Ciblé</label>
 							<select name="country_id" id="country_id" class="w-full p-3 border rounded-lg" required>
@@ -166,7 +168,7 @@
 							<label for="image" class="block text-sm font-medium text-gray-700">Images de
 								l'annonce</label>
 							<input type="file" name="image" id="image" class="w-full p-3 border rounded-lg"
-								x-ref="imageInput" @change="previewImage" accept="image/*">
+								x-ref="imageInput" onchange="previewImage(event)" accept="image/*" x-data="preview">
 						</div>
 
 						<!-- Champ pour les liens -->
@@ -193,9 +195,7 @@
 						</div>
 
 						<!-- Aperçu de l'image -->
-						<div x-show="imagePreview" class="mt-4">
-							<img :src="imagePreview" class="h-32 object-cover rounded-lg border">
-						</div>
+
 
 						<!-- Boutons de navigation -->
 						<div class="flex justify-between pt-4">
@@ -216,27 +216,23 @@
 			</div>
 			<!-- Aperçu de l'annonce (1/3 de la largeur) -->
 			<div class="w-[500px] p-8 bg-gray-50 border-l h-full overflow-y-auto sticky top-0 ml-12">
-
 				<h3 class="text-lg font-semibold mb-8">Aperçu de votre annonce</h3>
 
 				<div class="bg-white rounded-lg shadow-md overflow-hidden">
-					<!-- Image (sera mise à jour dynamiquement) -->
+					<!-- Image (mise à jour en temps réel) -->
 					<div class="h-64 bg-gray-100 flex items-center justify-center">
-						<template x-if="imagePreview">
-							<img :src="imagePreview" class="h-full w-full object-cover">
-						</template>
-						<template x-if="!imagePreview">
-							<div class="text-center p-4">
-								<svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor"
-									viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-									</path>
-								</svg>
-								<p class="mt-2 text-sm text-gray-500">Aperçu de l'image</p>
-							</div>
-						</template>
+						<img id="imagePreview" class="h-full w-full object-cover" style="display:none;">
+						<div id="defaultImage" class="text-center p-4">
+							<svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor"
+								viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+								</path>
+							</svg>
+							<p class="mt-2 text-sm text-gray-500">Aperçu de l'image</p>
+						</div>
 					</div>
+
 
 					<!-- Contenu de l'annonce -->
 					<div class="p-6">
@@ -256,7 +252,6 @@
 								<span
 									x-text="step >= 2 ? document.getElementById('country_id')?.options[document.getElementById('country_id')?.selectedIndex]?.text || 'Localisation' : 'Localisation'"></span>
 
-
 								<span x-show="step >= 2 && document.getElementById('state_id')?.value"
 									x-text="', ' + document.getElementById('state_id')?.options[document.getElementById('state_id')?.selectedIndex]?.text"></span>
 							</div>
@@ -274,6 +269,54 @@
 					<p>Cet aperçu montre comment votre annonce apparaîtra aux utilisateurs.</p>
 				</div>
 			</div>
+			<script>
+				function previewImage(event) {
+					var file = event.target.files[0];
+					var reader = new FileReader();
+
+					reader.onload = function (e) {
+						var imagePreview = document.getElementById('imagePreview');
+						var defaultImage = document.getElementById('defaultImage');
+
+						imagePreview.style.display = 'block';  // Affiche l'image
+						imagePreview.src = e.target.result;   // Charge l'image
+
+						defaultImage.style.display = 'none';  // Cache l'icône par défaut
+					}
+
+					reader.readAsDataURL(file);  // Lire le fichier image
+				}
+			</script>
+
+			<!-- Script pour gérer l'affichage de l'image -->
+			<script>
+				document.addEventListener('alpine:init', () => {
+					Alpine.data('preview', () => ({
+						imagePreview: null,
+
+						init() {
+							// Écouteur pour le changement de fichier
+							const fileInput = document.getElementById('imageUpload'); // Remplacez par l'ID de votre input file
+							if (fileInput) {
+								fileInput.addEventListener('change', (e) => {
+									this.previewImage(e);
+								});
+							}
+						},
+
+						previewImage(event) {
+							const input = event.target;
+							if (input.files && input.files[0]) {
+								const reader = new FileReader();
+								reader.onload = (e) => {
+									this.imagePreview = e.target.result;
+								};
+								reader.readAsDataURL(input.files[0]);
+							}
+						}
+					}));
+				});
+			</script>
 		</div>
 		</div>
 	</x-app.container>

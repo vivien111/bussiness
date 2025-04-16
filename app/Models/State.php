@@ -28,6 +28,11 @@ class State extends Model
         return $this->hasMany(Announcement::class);
     }
 
+    public function newsletterSchedules()
+    {
+        return $this->hasMany(NewsletterSchedule::class);
+    }
+
     public function newsletters()
     {
         return $this->hasMany(Newsletter::class);

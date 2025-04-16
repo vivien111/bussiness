@@ -11,6 +11,7 @@
         }
     </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
 
 </head>
 <body x-data class="flex flex-col lg:min-h-screen bg-zinc-50 dark:bg-zinc-900 @if(config('wave.dev_bar')){{ 'pb-10' }}@endif">

@@ -14,7 +14,13 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->morphs('billable');
+            $table->foreignId('user_id');
             $table->unsignedInteger('plan_id');
+            $table->string('type');
+            $table->string('stripe_id')->unique();
+            $table->string('stripe_status');
+            $table->string('stripe_price')->nullable();
+            $table->integer('quantity')->nullable();
             $table->string('vendor_slug');
             $table->string('vendor_product_id')->nullable();
             $table->string('vendor_transaction_id')->nullable();
@@ -26,6 +32,7 @@ return new class extends Migration
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->timestamps();
+            $table->index(['user_id', 'stripe_status']);
 
             $table->index(['billable_id', 'billable_type', 'plan_id']);
             $table->unique(['vendor_slug', 'vendor_subscription_id']);
